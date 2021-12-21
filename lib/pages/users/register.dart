@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:our_schedule/repository/auth.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -10,6 +11,8 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+  late AuthRepository authRepository;
   final _idController = TextEditingController();
   final _pwController = TextEditingController();
   final _nameController = TextEditingController();
@@ -20,6 +23,7 @@ class _RegisterState extends State<Register> {
   @override
   void initState() {
     super.initState();
+    authRepository = AuthRepository();
   }
 
   @override
@@ -147,8 +151,24 @@ class _RegisterState extends State<Register> {
         child: ElevatedButton(
           onPressed: !isRegister()
               ? null
-              : () {
-                  Get.toNamed('/dashboard');
+              : () async {
+                  dynamic auth = {
+                    'id': _idController.text,
+                    'pw': _pwController.text,
+                    'name': _nameController.text
+                  };
+                  bool res = await authRepository.setAuth(auth);
+                  res
+                      ? Get.toNamed('/dashboard')
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('잠시 후 다시 시도해주세요.'),
+                            duration: Duration(
+                              milliseconds: 1500,
+                            ),
+                          ),
+                        );
+                  // Get.toNamed('/dashboard');
                   // Get.offNamed('/dashboard');
                 },
           child: const Text('REGISTER'),
@@ -189,6 +209,7 @@ class _RegisterState extends State<Register> {
     }
 
     return Scaffold(
+      key: scaffoldKey,
       appBar: appBar(),
       body: body(),
     );
