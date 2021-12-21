@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
@@ -24,6 +25,10 @@ class _HomeState extends State<Home> {
     _idController.dispose();
     _pwController.dispose();
     super.dispose();
+  }
+
+  bool isLogin() {
+    return _idController.text.length >= 4 && _pwController.text.length >= 4;
   }
 
   @override
@@ -61,6 +66,10 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: TextField(
                     controller: _idController,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(
+                          RegExp(r'[a-z|A-Z|0-9]'))
+                    ],
                     decoration: InputDecoration(
                       labelText: 'ID',
                       labelStyle:
@@ -80,6 +89,10 @@ class _HomeState extends State<Home> {
                   child: TextField(
                     controller: _pwController,
                     obscureText: true,
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(
+                          r'[\w|$`~!@$!%*#^?&\\(\\)\-_=+\[\]\{\}\;\:\\,\.\<\>]'))
+                    ],
                     decoration: InputDecoration(
                       labelText: 'PASSWORD',
                       labelStyle:
@@ -97,12 +110,15 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: ElevatedButton(
-                    onPressed: () {
-                      Get.toNamed('/dashboard');
-                    },
+                    onPressed: !isLogin()
+                        ? null
+                        : () {
+                            Get.toNamed('/dashboard');
+                            // Get.offNamed('/dashboard');
+                          },
                     child: const Text('LOGIN'),
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.grey,
+                      primary: Colors.lightBlue,
                       onPrimary: Colors.white,
                       minimumSize: Size(width < 300 ? 250 : 300, 50),
                     ),
