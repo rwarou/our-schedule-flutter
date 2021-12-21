@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:our_schedule/pages/dash_board.dart';
 
 import 'pages/home.dart';
+import 'pages/users/register.dart';
 
 void main() {
   runApp(const MyApp());
@@ -20,6 +22,8 @@ class MyApp extends StatelessWidget {
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => Home()),
+        GetPage(name: '/users/register', page: () => Register()),
+        GetPage(name: '/dashboard', page: () => Dashboard()),
       ],
     );
   }

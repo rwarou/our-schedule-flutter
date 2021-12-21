@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -97,8 +98,7 @@ class _HomeState extends State<Home> {
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: ElevatedButton(
                     onPressed: () {
-                      print(
-                          'id : ${_idController.text} / pw : ${_pwController.text}');
+                      Get.toNamed('/dashboard');
                     },
                     child: const Text('LOGIN'),
                     style: ElevatedButton.styleFrom(
@@ -111,7 +111,9 @@ class _HomeState extends State<Home> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Get.toNamed('/users/register');
+                    },
                     child: const Text('REGISTER'),
                     style: ElevatedButton.styleFrom(
                       primary: Colors.lightBlue,
