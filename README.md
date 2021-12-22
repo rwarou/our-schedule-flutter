@@ -7,7 +7,7 @@
 
 <br>
 
-## creator
+## developer
 - [rwarou]
 
 <br>
