@@ -12,56 +12,28 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   AuthRepository authRepository = AuthRepository();
   bool checked = false;
+  final List<String> datas = ['A', 'B', 'C'];
 
   body() {
     return Container(
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            Container(
-              height: 100,
-              color: Colors.red.withOpacity(0.1),
-              child: Text('1'),
+      padding: const EdgeInsets.all(20),
+      child: ListView.builder(
+        itemCount: datas.length,
+        // separatorBuilder: (BuildContext context, int index) => Divider(
+        //   thickness: 1,
+        //   color: Colors.black.withOpacity(0.3),
+        // ),
+        itemBuilder: (BuildContext context, int index) => Container(
+          margin: const EdgeInsets.symmetric(vertical: 5),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            border: Border.all(
+              width: 1,
+              color: Colors.black.withOpacity(0.5),
             ),
-            Container(
-              color: Colors.red.withOpacity(0.2),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(0.3),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(0.4),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(0.5),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(0.6),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(0.7),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(0.8),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(0.9),
-              child: Text('1'),
-            ),
-            Container(
-              color: Colors.red.withOpacity(1),
-              child: Text('1'),
-            ),
-          ],
+          ),
+          child: Text(datas[index]),
         ),
       ),
     );
