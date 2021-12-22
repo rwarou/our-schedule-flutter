@@ -1,9 +1,9 @@
 # 약속 스케줄 작성 앱
 
 ## stack
-|SERVER|BACKEND|APPLICATION|
-|:---:|:---:|:---:|
-|aws or heroku|express.js|flutter|
+|SERVER|DATABASE|BACKEND|APPLICATION|
+|:---:|:---:|:---:|:---:|
+|`aws` or heroku|mongoDB or `mariaDB`|express.js|flutter|
 
 <br>
 
@@ -14,7 +14,7 @@
 
 ## directory
 |folder dept|내용|비고|
-|:---:|:---:|:---:|
+|:---|:---:|:---:|
 |OUR_SCHEDULE|root directory|
 |OUR_SCHEDULE/android|aos directory|AOS 설정할 때 해당 폴더 내 파일에 접근|
 |OUR_SCHEDULE/ios|ios directory|IOS 설정할 때 해당 폴더 내 파일에 접근|
