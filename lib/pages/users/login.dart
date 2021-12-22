@@ -1,40 +1,31 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart';
 import 'package:our_schedule/repository/auth.dart';
 
-class Register extends StatefulWidget {
-  const Register({Key? key}) : super(key: key);
+class Login extends StatefulWidget {
+  const Login({Key? key}) : super(key: key);
 
   @override
-  _RegisterState createState() => _RegisterState();
+  _HomeState createState() => _HomeState();
 }
 
-class _RegisterState extends State<Register> {
-  var dio = Dio();
-  final scaffoldKey = GlobalKey<ScaffoldState>();
-  late AuthRepository authRepository;
+class _HomeState extends State<Login> {
+  AuthRepository authRepository = AuthRepository();
   final _idController = TextEditingController();
   final _pwController = TextEditingController();
-  final _nameController = TextEditingController();
   String id = '';
   String pw = '';
-  String name = '';
 
   @override
   void initState() {
     super.initState();
-    authRepository = AuthRepository();
   }
 
   @override
   void dispose() {
     _idController.dispose();
     _pwController.dispose();
-    _nameController.dispose();
     super.dispose();
   }
 
@@ -42,10 +33,8 @@ class _RegisterState extends State<Register> {
     return _idController.text.isEmpty && _pwController.text.isEmpty;
   }
 
-  bool isRegister() {
-    return _idController.text.length >= 4 &&
-        _pwController.text.length >= 4 &&
-        _nameController.text.isNotEmpty;
+  bool isLogin() {
+    return _idController.text.length >= 4 && _pwController.text.length >= 4;
   }
 
   @override
@@ -66,26 +55,14 @@ class _RegisterState extends State<Register> {
       );
     }
 
-    nameBorder(TextEditingController controller) {
-      return OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10),
-        borderSide: BorderSide(
-          width: 1,
-          color: controller.text.isNotEmpty
-              ? Colors.lightBlue.withOpacity(0.5)
-              : Colors.red.withOpacity(0.5),
-        ),
-      );
-    }
-
     inputId() {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: TextField(
           controller: _idController,
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[a-z|A-Z|0-9]'))
-          ],
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(RegExp(r'[a-z|A-Z|0-9]'))
+          // ],
           decoration: InputDecoration(
             labelText: 'ID',
             labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
@@ -107,10 +84,10 @@ class _RegisterState extends State<Register> {
         child: TextField(
           controller: _pwController,
           obscureText: true,
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(
-                RegExp(r'[\w|$`~!@$!%*#^?&\\(\\)\-_=+\[\]\{\}\;\:\\,\.\<\>]'))
-          ],
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(
+          //       RegExp(r'[\w|$`~!@$!%*#^?&\\(\\)\-_=+\[\]\{\}\;\:\\,\.\<\>]'))
+          // ],
           decoration: InputDecoration(
             labelText: 'PASSWORD',
             labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
@@ -126,25 +103,37 @@ class _RegisterState extends State<Register> {
       );
     }
 
-    inputName() {
+    loginButton() {
       return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 10),
-        child: TextField(
-          controller: _nameController,
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[ㄱ-ㅎ|ㅏ-ㅣ|가-힣|a-z|A-Z]'))
-          ],
-          decoration: InputDecoration(
-            labelText: 'NAME',
-            labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
-            hintText: 'ENTER YOUR NAME',
-            border: nameBorder(_nameController),
-            focusedBorder: nameBorder(_nameController),
-            enabledBorder: nameBorder(_nameController),
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: ElevatedButton(
+          onPressed: !isLogin()
+              ? null
+              : () async {
+                  String auth = '''{
+                    "id": "${_idController.text}",
+                    "pw": "${_pwController.text}"
+                  }''';
+
+                  bool res = await authRepository.setAuth(auth.toString());
+
+                  res
+                      ? Get.offNamed('/dashboard')
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('정보가 일치하지 않습니다.'),
+                            duration: Duration(
+                              milliseconds: 1500,
+                            ),
+                          ),
+                        );
+                },
+          child: const Text('LOGIN'),
+          style: ElevatedButton.styleFrom(
+            primary: Colors.lightBlue,
+            onPrimary: Colors.white,
+            minimumSize: Size(width < 300 ? 250 : 300, 50),
           ),
-          onChanged: (text) {
-            setState(() {});
-          },
         ),
       );
     }
@@ -153,36 +142,9 @@ class _RegisterState extends State<Register> {
       return Padding(
         padding: const EdgeInsets.symmetric(vertical: 5),
         child: ElevatedButton(
-          onPressed: !isRegister()
-              ? null
-              : () async {
-                  dynamic auth = {
-                    'id': _idController.text,
-                    'pw': _pwController.text,
-                    'name': _nameController.text
-                  };
-
-                  // try {
-                  //   dynamic res = await dio
-                  //       .post('http://127.0.0.1:3000/users/auth', data: auth);
-                  //   print('dio success : $res');
-                  // } catch (error) {
-                  //   print('dio error : $error');
-                  // }
-                  bool res = await authRepository.setAuth(auth);
-                  res
-                      ? Get.toNamed('/dashboard')
-                      : ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('잠시 후 다시 시도해주세요.'),
-                            duration: Duration(
-                              milliseconds: 1500,
-                            ),
-                          ),
-                        );
-                  // Get.toNamed('/dashboard');
-                  // Get.offNamed('/dashboard');
-                },
+          onPressed: () {
+            Get.toNamed('/users/register');
+          },
           child: const Text('REGISTER'),
           style: ElevatedButton.styleFrom(
             primary: Colors.lightBlue,
@@ -205,7 +167,7 @@ class _RegisterState extends State<Register> {
               children: [
                 inputId(),
                 inputPw(),
-                inputName(),
+                loginButton(),
                 registerButton(),
               ],
             ),
@@ -216,12 +178,11 @@ class _RegisterState extends State<Register> {
 
     appBar() {
       return AppBar(
-        title: Text('REGISTER'),
+        title: const Text('LOGIN'),
       );
     }
 
     return Scaffold(
-      key: scaffoldKey,
       appBar: appBar(),
       body: body(),
     );
