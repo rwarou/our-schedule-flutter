@@ -12,28 +12,55 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   AuthRepository authRepository = AuthRepository();
   bool checked = false;
-  final List<String> datas = ['A', 'B', 'C'];
+  final List<String> datas = ['강릉 여행', '보드게임 하러 가자', '제주도 3박4일 계획'];
 
   body() {
     return Container(
       padding: const EdgeInsets.all(20),
       child: ListView.builder(
         itemCount: datas.length,
-        // separatorBuilder: (BuildContext context, int index) => Divider(
-        //   thickness: 1,
-        //   color: Colors.black.withOpacity(0.3),
-        // ),
-        itemBuilder: (BuildContext context, int index) => Container(
-          margin: const EdgeInsets.symmetric(vertical: 5),
-          padding: const EdgeInsets.all(10),
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10),
-            border: Border.all(
-              width: 1,
-              color: Colors.black.withOpacity(0.5),
+        itemBuilder: (BuildContext context, int index) => GestureDetector(
+          onTap: () {},
+          child: Container(
+            margin: const EdgeInsets.symmetric(vertical: 10),
+            padding: const EdgeInsets.symmetric(
+              vertical: 20,
+              horizontal: 10,
+            ),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              border: Border.all(
+                width: 1,
+                color: Colors.black.withOpacity(0.5),
+              ),
+            ),
+            child: Row(
+              // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const Expanded(
+                  flex: 2,
+                  child: Icon(
+                    Icons.image,
+                    size: 50,
+                  ),
+                ),
+                Expanded(
+                  flex: 7,
+                  child: Column(
+                    children: [
+                      Text(datas[index]),
+                      Text('놀러 가는 날짜 $index'),
+                      Text('이름 $index'),
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Text('${index + 1}/4'),
+                ),
+              ],
             ),
           ),
-          child: Text(datas[index]),
         ),
       ),
     );
