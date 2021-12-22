@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:our_schedule/pages/dash_board.dart';
 
 import 'pages/home.dart';
+import 'pages/promise/add.dart';
 import 'pages/users/register.dart';
 
 void main() {
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
         GetPage(name: '/', page: () => Home()),
         GetPage(name: '/users/register', page: () => Register()),
         GetPage(name: '/dashboard', page: () => Dashboard()),
+        GetPage(name: '/dashboard/add', page: () => Add()),
       ],
     );
   }

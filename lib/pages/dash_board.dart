@@ -72,7 +72,9 @@ class _DashboardState extends State<Dashboard> {
     double width = size.width;
     double containerWidth = width < 300 ? 200 : 300;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Get.toNamed('/dashboard/add');
+      },
       child: Center(
         child: Container(
           width: containerWidth,
@@ -93,7 +95,7 @@ class _DashboardState extends State<Dashboard> {
                   color: Colors.black.withOpacity(0.6),
                   size: 50,
                 ),
-                Text('약속 추가하기'),
+                const Text('약속 추가하기'),
               ],
             ),
           ),
@@ -104,7 +106,7 @@ class _DashboardState extends State<Dashboard> {
 
   appBar() {
     return AppBar(
-      title: Text('Dashboard'),
+      title: const Text('Dashboard'),
       actions: [
         IconButton(
           onPressed: () {
