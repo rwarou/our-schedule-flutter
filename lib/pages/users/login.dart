@@ -60,9 +60,9 @@ class _HomeState extends State<Login> {
         padding: const EdgeInsets.symmetric(vertical: 10),
         child: TextField(
           controller: _idController,
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(RegExp(r'[a-z|A-Z|0-9]'))
-          ],
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(RegExp(r'[a-z|A-Z|0-9]'))
+          // ],
           decoration: InputDecoration(
             labelText: 'ID',
             labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
@@ -84,10 +84,10 @@ class _HomeState extends State<Login> {
         child: TextField(
           controller: _pwController,
           obscureText: true,
-          inputFormatters: [
-            FilteringTextInputFormatter.allow(
-                RegExp(r'[\w|$`~!@$!%*#^?&\\(\\)\-_=+\[\]\{\}\;\:\\,\.\<\>]'))
-          ],
+          // inputFormatters: [
+          //   FilteringTextInputFormatter.allow(
+          //       RegExp(r'[\w|$`~!@$!%*#^?&\\(\\)\-_=+\[\]\{\}\;\:\\,\.\<\>]'))
+          // ],
           decoration: InputDecoration(
             labelText: 'PASSWORD',
             labelStyle: TextStyle(color: Colors.black.withOpacity(0.5)),
@@ -109,9 +109,24 @@ class _HomeState extends State<Login> {
         child: ElevatedButton(
           onPressed: !isLogin()
               ? null
-              : () {
-                  Get.toNamed('/dashboard');
-                  // Get.offNamed('/dashboard');
+              : () async {
+                  String auth = '''{
+                    "id": "${_idController.text}",
+                    "pw": "${_pwController.text}"
+                  }''';
+
+                  bool res = await authRepository.setAuth(auth.toString());
+
+                  res
+                      ? Get.offNamed('/dashboard')
+                      : ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('정보가 일치하지 않습니다.'),
+                            duration: Duration(
+                              milliseconds: 1500,
+                            ),
+                          ),
+                        );
                 },
           child: const Text('LOGIN'),
           style: ElevatedButton.styleFrom(

@@ -12,8 +12,13 @@ class AuthRepository extends LocalStorage {
     return value;
   }
 
-  Future<bool> setAuth(dynamic value) async {
-    bool jsonBool = await setStoredValue(KEY, jsonEncode(value));
+  Future<bool> setAuth(String value) async {
+    Map<String, dynamic> data = jsonDecode(value);
+    bool jsonBool = false;
+    if (data['id'] == 'qwer' && data['pw'] == 'asdf') {
+      jsonBool = await setStoredValue(KEY, jsonEncode(value));
+    }
+
     print('setAuth : $jsonBool');
     return jsonBool;
   }
