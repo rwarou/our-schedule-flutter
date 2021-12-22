@@ -7,7 +7,7 @@ class AuthRepository extends LocalStorage {
 
   Future<bool> getAuth() async {
     String jsonStr = await getStoredValue(KEY);
-    bool value = jsonStr == null || jsonStr == 'null' ? false : true;
+    bool value = jsonStr.isEmpty ? false : true;
     return value;
   }
 
@@ -16,7 +16,7 @@ class AuthRepository extends LocalStorage {
     return jsonBool;
   }
 
-  Future<bool> deleteAuth(dynamic value) async {
+  Future<bool> deleteAuth() async {
     bool jsonBool = await deleteStoredValue(KEY);
     return jsonBool;
   }
