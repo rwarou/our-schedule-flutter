@@ -3,5 +3,5 @@ class Auth {
   String pw;
   String name;
 
-  Auth(this.id, this.pw, this.name);
+  Auth({required this.id, required this.pw, required this.name});
 }
