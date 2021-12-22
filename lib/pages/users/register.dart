@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:dio/dio.dart';
 import 'package:our_schedule/repository/auth.dart';
 
 class Register extends StatefulWidget {
@@ -11,6 +12,7 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
+  var dio = Dio();
   final scaffoldKey = GlobalKey<ScaffoldState>();
   late AuthRepository authRepository;
   final _idController = TextEditingController();
@@ -157,17 +159,25 @@ class _RegisterState extends State<Register> {
                     'pw': _pwController.text,
                     'name': _nameController.text
                   };
-                  bool res = await authRepository.setAuth(auth);
-                  res
-                      ? Get.toNamed('/dashboard')
-                      : ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('잠시 후 다시 시도해주세요.'),
-                            duration: Duration(
-                              milliseconds: 1500,
-                            ),
-                          ),
-                        );
+
+                  try {
+                    var res = await dio.post('http://127.0.0.1:3000/users/auth',
+                        data: auth);
+                    print('dio success : $res');
+                  } catch (error) {
+                    print('dio error : $error');
+                  }
+                  // bool res = await authRepository.setAuth(auth);
+                  // res
+                  //     ? Get.toNamed('/dashboard')
+                  //     : ScaffoldMessenger.of(context).showSnackBar(
+                  //         const SnackBar(
+                  //           content: Text('잠시 후 다시 시도해주세요.'),
+                  //           duration: Duration(
+                  //             milliseconds: 1500,
+                  //           ),
+                  //         ),
+                  //       );
                   // Get.toNamed('/dashboard');
                   // Get.offNamed('/dashboard');
                 },
