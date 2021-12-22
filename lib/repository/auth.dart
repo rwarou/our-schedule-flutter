@@ -8,16 +8,19 @@ class AuthRepository extends LocalStorage {
   Future<bool> getAuth() async {
     String jsonStr = await getStoredValue(KEY);
     bool value = jsonStr.isEmpty ? false : true;
+    print('getAuth : $value');
     return value;
   }
 
   Future<bool> setAuth(dynamic value) async {
     bool jsonBool = await setStoredValue(KEY, jsonEncode(value));
+    print('setAuth : $jsonBool');
     return jsonBool;
   }
 
   Future<bool> deleteAuth() async {
     bool jsonBool = await deleteStoredValue(KEY);
+    print('deleteAuth : $jsonBool');
     return jsonBool;
   }
 }
