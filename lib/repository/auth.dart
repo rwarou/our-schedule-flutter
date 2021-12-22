@@ -5,10 +5,9 @@ import 'package:our_schedule/repository/local_storage.dart';
 class AuthRepository extends LocalStorage {
   final String KEY = 'AUTH_KEY';
 
-  Future<String> getAuth() async {
+  Future<bool> getAuth() async {
     String jsonStr = await getStoredValue(KEY);
-    dynamic value =
-        jsonStr == null || jsonStr == 'null' ? '' : jsonDecode(jsonStr);
+    bool value = jsonStr == null || jsonStr == 'null' ? false : true;
     return value;
   }
 

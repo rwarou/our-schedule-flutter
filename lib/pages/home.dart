@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:our_schedule/repository/auth.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -10,6 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  AuthRepository authRepository = AuthRepository();
   final _idController = TextEditingController();
   final _pwController = TextEditingController();
   String id = '';
@@ -35,11 +37,21 @@ class _HomeState extends State<Home> {
     return _idController.text.length >= 4 && _pwController.text.length >= 4;
   }
 
+  getAuth() async {
+    bool auth = await authRepository.getAuth();
+    print('getAuth : $auth');
+    if (auth) {
+      Get.toNamed('/dashboard');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size deviceSize = MediaQuery.of(context).size;
     double width = deviceSize.width;
     double height = deviceSize.height;
+
+    getAuth();
 
     border(TextEditingController controller) {
       return OutlineInputBorder(
