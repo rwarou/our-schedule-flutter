@@ -14,7 +14,7 @@ class AuthRepository extends LocalStorage {
 
   Future<bool> setAuth(dynamic value) async {
     bool jsonBool = await setStoredValue(KEY, jsonEncode(value));
-    return false;
+    return jsonBool;
   }
 
   Future<bool> deleteAuth(dynamic value) async {
