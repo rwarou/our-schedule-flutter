@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:our_schedule/repository/auth.dart';
 
+import 'calendar/calendar.dart';
+
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
 
@@ -12,9 +14,11 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   AuthRepository authRepository = AuthRepository();
   bool checked = false;
+  int _selectedIndex = 0;
   final List<String> datas = ['강릉 여행', '보드게임 하러 가자', '제주도 3박4일 계획'];
+  final List<Widget> widgets = [const Calendar(), Text('add'), Text('my page')];
 
-  body() {
+  listBody() {
     return Container(
       padding: const EdgeInsets.all(20),
       child: ListView.builder(
@@ -66,7 +70,7 @@ class _DashboardState extends State<Dashboard> {
     );
   }
 
-  noneBody() {
+  addBody() {
     Size size = MediaQuery.of(context).size;
     double width = size.width;
     double containerWidth = width < 300 ? 200 : 300;
@@ -144,7 +148,38 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: appBar(),
-      body: checked ? body() : noneBody(),
+      body: widgets[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        items: [
+          BottomNavigationBarItem(
+            icon: _selectedIndex == 0
+                ? const Icon(Icons.home_filled)
+                : const Icon(Icons.home_outlined),
+            label: 'home',
+          ),
+          BottomNavigationBarItem(
+            icon: _selectedIndex == 1
+                ? const Icon(Icons.add)
+                : const Icon(Icons.add_outlined),
+            label: 'home',
+          ),
+          BottomNavigationBarItem(
+            icon: _selectedIndex == 2
+                ? const Icon(Icons.person)
+                : const Icon(Icons.person_outline),
+            label: 'home',
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        currentIndex: _selectedIndex,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        selectedItemColor: Colors.black,
+      ),
     );
   }
 }

@@ -1,16 +1,31 @@
-# our_schedule
+# 약속 스케줄 작성 앱
 
-A new Flutter project.
+## stack
+|SERVER|DATABASE|BACKEND|APPLICATION|
+|:---:|:---:|:---:|:---:|
+|`aws` or heroku|mongoDB or `mariaDB`|express.js|flutter|
 
-## Getting Started
+<br>
 
-This project is a starting point for a Flutter application.
+## developer
+- [rwarou]
 
-A few resources to get you started if this is your first Flutter project:
+<br>
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## directory
+|folder dept|내용|비고|
+|:---|:---:|:---:|
+|OUR_SCHEDULE|root directory|
+|OUR_SCHEDULE/android|aos directory|AOS 설정할 때 해당 폴더 내 파일에 접근|
+|OUR_SCHEDULE/ios|ios directory|IOS 설정할 때 해당 폴더 내 파일에 접근|
+|OUR_SCHEDULE/web|web directory|
+|OUR_SCHEDULE/lib|flutter directory|이 디렉토리에서 개발 진행|
+|OUR_SCHEDULE/lib/components|컴포넌트 모음|아직 사용하지 않음 (12/22 기준)|
+|OUR_SCHEDULE/lib/models|모델 모음|아직 사용하지 않음 (12/22 기준)|
+|OUR_SCHEDULE/lib/pages|페이지 모음||
+|OUR_SCHEDULE/lib/repository|레파지토리 모음|로컬스토리지를 위해 사용하는 중 (12/22 기준)|
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
+
+[rwarou]:https://github.com/rwarou
