@@ -139,7 +139,21 @@ class _CalendarState extends State<Calendar> {
         // print('focusedDay $focusedDay');
         _focusedDay = focusedDay;
       },
-      calendarBuilders: CalendarBuilders(),
+      // calendarBuilders: CalendarBuilders(
+      //   prioritizedBuilder: (context, day, focusedDay) {
+      //     return Container(
+      //       alignment: Alignment.topLeft,
+      //       child: Text(
+      //         '${day.day}',
+      //         style: TextStyle(
+      //           color: day.month != focusedDay.month
+      //               ? Colors.black.withOpacity(0.2)
+      //               : Colors.black.withOpacity(0.9),
+      //         ),
+      //       ),
+      //     );
+      //   },
+      // ),
     );
   }
 
