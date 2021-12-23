@@ -35,7 +35,7 @@
 |[dio]|^4.0.4|서버와 통신하기 위한 라이브러리 (12/23 기준 아직 사용 전)|
 |[table_calendar]|^3.0.3|일정 정보를 표현해주기 위해 사용|
 |[intl]|^0.17.0|아직 잘 모르겠음 (추후에 사용하게 될 듯)|
-|auto_size_text|^3.0.0|텍스트 사이즈 및 라인 지정하여 동적으로 활용가능한 라이브러리|
+|[auto_size_text]|^3.0.0|텍스트 사이즈 및 라인 지정하여 동적으로 활용가능한 라이브러리|
 
 <br>
 
@@ -53,3 +53,4 @@
 [dio]:https://pub.dev/packages/dio
 [table_calendar]:https://pub.dev/packages/table_calendar
 [intl]:https://pub.dev/packages/intl
+[auto_size_text]:https://pub.dev/packages/auto_size_text
