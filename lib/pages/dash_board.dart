@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:our_schedule/repository/auth.dart';
 
-import 'calendar/calendar.dart';
+import 'dashboard/add.dart';
+import 'dashboard/calendar.dart';
+import 'dashboard/my_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -16,7 +18,7 @@ class _DashboardState extends State<Dashboard> {
   bool checked = false;
   int _selectedIndex = 0;
   final List<String> datas = ['강릉 여행', '보드게임 하러 가자', '제주도 3박4일 계획'];
-  final List<Widget> widgets = [const Calendar(), Text('add'), Text('my page')];
+  final List<Widget> widgets = [const Calendar(), const Add(), const MyPage()];
 
   listBody() {
     return Container(
@@ -62,43 +64,6 @@ class _DashboardState extends State<Dashboard> {
                   flex: 1,
                   child: Text('${index + 1}/4'),
                 ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-
-  addBody() {
-    Size size = MediaQuery.of(context).size;
-    double width = size.width;
-    double containerWidth = width < 300 ? 200 : 300;
-    return GestureDetector(
-      onTap: () {
-        Get.toNamed('/dashboard/add');
-      },
-      child: Center(
-        child: Container(
-          width: containerWidth,
-          height: containerWidth,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(containerWidth / 10),
-            border: Border.all(
-              width: 1,
-              color: Colors.black.withOpacity(0.4),
-            ),
-          ),
-          child: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.add,
-                  color: Colors.black.withOpacity(0.6),
-                  size: 50,
-                ),
-                const Text('약속 추가하기'),
               ],
             ),
           ),
@@ -155,19 +120,19 @@ class _DashboardState extends State<Dashboard> {
             icon: _selectedIndex == 0
                 ? const Icon(Icons.home_filled)
                 : const Icon(Icons.home_outlined),
-            label: 'home',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: _selectedIndex == 1
                 ? const Icon(Icons.add)
                 : const Icon(Icons.add_outlined),
-            label: 'home',
+            label: '',
           ),
           BottomNavigationBarItem(
             icon: _selectedIndex == 2
                 ? const Icon(Icons.person)
                 : const Icon(Icons.person_outline),
-            label: 'home',
+            label: '',
           ),
         ],
         onTap: (index) {
