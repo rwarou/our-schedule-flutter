@@ -16,7 +16,7 @@ class _DashboardState extends State<Dashboard> {
   bool checked = false;
   int _selectedIndex = 0;
   final List<String> datas = ['강릉 여행', '보드게임 하러 가자', '제주도 3박4일 계획'];
-  final List<Widget> widgets = [Calendar(), Text('add'), Text('my page')];
+  final List<Widget> widgets = [const Calendar(), Text('add'), Text('my page')];
 
   listBody() {
     return Container(
