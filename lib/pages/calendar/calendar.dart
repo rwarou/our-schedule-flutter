@@ -13,6 +13,24 @@ class _CalendarState extends State<Calendar> {
   DateTime _selectedDay = DateTime.now();
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
+  late Map<String, List<dynamic>> datas = {
+    '20211222': ['놀고', '먹기'],
+    '20211223': ['놀고', '먹기'],
+  };
+  late List<dynamic> selectedList = [];
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  // }
+
+  yyyyMMdd(DateTime date) {
+    return '${date.year}${date.month}${date.day}';
+  }
+
+  selectedDataList(DateTime date) {
+    return datas[yyyyMMdd(date)] ?? [];
+  }
 
   headerStyle() {
     return HeaderStyle(
@@ -44,8 +62,7 @@ class _CalendarState extends State<Calendar> {
     );
   }
 
-  @override
-  Widget build(BuildContext context) {
+  tableCalendar() {
     return TableCalendar(
       focusedDay: DateTime.now(),
       // 활성화의 첫 날
@@ -89,21 +106,21 @@ class _CalendarState extends State<Calendar> {
         ),
       ),
       rowHeight: 60,
-      eventLoader: (day) {
-        print('eventloader $day');
-        List<dynamic> list = [];
-        return list;
+      // 이벤트 리스트 출력
+      eventLoader: (currentSelectedDate) {
+        print('eventloader $currentSelectedDate');
+        return selectedDataList(currentSelectedDate);
       },
       // 달력에 표시되는 날짜 하나하나 호출, return은 같은 날일 때 색을 표시해주기 위함
       selectedDayPredicate: (currentSelectedDate) {
-        print(
-            'selectedDayPredicate $currentSelectedDate / _selectedDay $_selectedDay');
+        // print(
+        //     'selectedDayPredicate $currentSelectedDate / _selectedDay $_selectedDay');
         return isSameDay(_selectedDay, currentSelectedDate);
       },
       // 날짜 선택
       onDaySelected: (selectedDay, focusedDay) {
         setState(() {
-          print('selectedDay $selectedDay / focusedDay $focusedDay');
+          // print('selectedDay $selectedDay / focusedDay $focusedDay');
           _selectedDay = selectedDay;
           _focusedDay = focusedDay;
         });
@@ -112,16 +129,58 @@ class _CalendarState extends State<Calendar> {
       onFormatChanged: (format) {
         setState(
           () {
-            print('format $format');
+            // print('format $format');
             _calendarFormat = format;
           },
         );
       },
       // 달력 넘김
       onPageChanged: (focusedDay) {
-        print('focusedDay $focusedDay');
+        // print('focusedDay $focusedDay');
         _focusedDay = focusedDay;
       },
+      calendarBuilders: CalendarBuilders(),
+    );
+  }
+
+  calendarDataList() {
+    List<dynamic> list = selectedDataList(_selectedDay);
+    return Expanded(
+      child: ListView.builder(
+        itemCount: list.length,
+        itemBuilder: (BuildContext context, int index) => GestureDetector(
+          onTap: () {},
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+            child: Container(
+              alignment: Alignment.center,
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  width: 1,
+                  color: Colors.black.withOpacity(0.4),
+                ),
+                borderRadius: BorderRadius.circular(20),
+                color: Colors.red.withOpacity((index + 1) / 10),
+              ),
+              child: Text(
+                list[index],
+                style: TextStyle(fontSize: 20),
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        tableCalendar(),
+        calendarDataList(),
+      ],
     );
   }
 }
