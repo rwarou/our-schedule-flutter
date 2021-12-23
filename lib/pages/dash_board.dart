@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:our_schedule/pages/dashboard/my_page.dart';
-import 'package:our_schedule/pages/promise/add.dart';
 import 'package:our_schedule/repository/auth.dart';
 
+import 'dashboard/add.dart';
 import 'dashboard/calendar.dart';
+import 'dashboard/my_page.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key}) : super(key: key);
