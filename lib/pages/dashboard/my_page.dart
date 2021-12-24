@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class MyPage extends StatefulWidget {
   const MyPage({Key? key}) : super(key: key);
@@ -61,11 +62,14 @@ class _MyPageState extends State<MyPage> {
       );
     }
 
-    groupListButton() {
+    gestureDetector(String text, Function function) {
       return GestureDetector(
-        onTap: () {},
+        onTap: () {
+          function();
+        },
         child: Container(
           alignment: Alignment.center,
+          padding: EdgeInsets.only(left: 10),
           width: 200,
           height: 50,
           decoration: BoxDecoration(
@@ -77,18 +81,27 @@ class _MyPageState extends State<MyPage> {
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: const [
+            children: [
               Text(
-                '모임 목록',
-                style: TextStyle(fontSize: 18),
+                text,
+                style: const TextStyle(fontSize: 18),
               ),
-              Icon(
+              const Icon(
                 Icons.chevron_right,
                 size: 30,
               ),
             ],
           ),
         ),
+      );
+    }
+
+    columnButton() {
+      return Column(
+        children: [
+          gestureDetector('모임 목록', () => print('모임 목록 버튼 클릭')),
+          gestureDetector('로그아웃', () => print('로그아웃 버튼 클릭')),
+        ],
       );
     }
 
@@ -99,7 +112,7 @@ class _MyPageState extends State<MyPage> {
         children: <Widget>[
           avatar(),
           name(),
-          groupListButton(),
+          columnButton(),
         ],
       ),
     );
