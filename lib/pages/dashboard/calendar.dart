@@ -14,8 +14,8 @@ class _CalendarState extends State<Calendar> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   late Map<String, List<dynamic>> datas = {
-    '20211222': ['놀고', '먹기'],
     '20211223': ['놀고', '먹기'],
+    '20211224': ['놀고', '먹기', '놀고', '먹기', '놀고', '먹기', '놀고', '먹기'],
   };
   late List<dynamic> selectedList = [];
 
@@ -66,7 +66,7 @@ class _CalendarState extends State<Calendar> {
     return TableCalendar(
       focusedDay: DateTime.now(),
       // 활성화의 첫 날
-      firstDay: DateTime.now(),
+      firstDay: DateTime.utc(2021, 12, 21),
       // 활성화의 마지막 날
       lastDay: DateTime.utc(2030, 12, 31),
       // 해더 스타일 설정
