@@ -104,6 +104,16 @@ class _CalendarState extends State<Calendar> {
           color: Colors.lime,
           shape: BoxShape.circle,
         ),
+        // 셀 스타일 설정
+        cellAlignment: Alignment.center,
+        cellPadding: EdgeInsets.all(5),
+        // 마커 스타일 설정
+        markersMaxCount: 4,
+        markerDecoration:
+            BoxDecoration(color: Colors.black54, shape: BoxShape.circle),
+        // 달력 테두리 스타일 설정
+        tableBorder: TableBorder(),
+        rowDecoration: BoxDecoration(),
       ),
       rowHeight: 60,
       // 이벤트 리스트 출력
